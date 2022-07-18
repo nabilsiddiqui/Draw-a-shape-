@@ -1,0 +1,158 @@
+
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+// This function describes the program and how it works.
+void instructions ();
+
+// This function will return the choice to the main. 1) draw triangle. 2) draw diamond. 3) quit
+int menu ();
+
+// This function calls on appropriate function depending on the choice to draw a shape.
+void draw_shape (int choice);
+
+// This function will return the size of the shape, same function for either of the shapes.
+int get_size ();
+
+// This function will ask users to select a character that will be used to draw the shape.
+char get_char ();
+
+// This function draws a triangle of size (size) using a character c.
+void draw_triangle (int size, char c);
+
+// This function first calls draw_triangle, then draw_bottom to draw the diamond.
+void draw_diamond (int size, char c);
+
+// This function actually draws an upside down triangle of size size-1 as the bottom of the diamond.
+void draw_bottom (int size, char c);
+
+int main ()
+{
+	int choice;
+	instructions();
+	choice = menu();
+	if(choice != 1 && choice != 2)
+	{
+		cout << "You've requested to quit, Bye Bye\n";
+		return 0;
+	}
+	draw_shape(choice);
+	return 0;
+}
+
+// This function describes the program and how it works.
+void instructions ()
+{
+	cout<<"---------------------------------------------------------------"<<endl;
+	cout<<"\tWelcome to our program"<<endl;
+	cout<<"---------------------------------------------------------------"<<endl;
+	cout<<"This program draws a shape (a triangle or a diamond)."<<endl;
+	cout<<"It prompts for the type of shape."<<endl;
+	cout<<"Then it requests the size of the shape."<<endl;
+	cout<<"Finally it requests the character to be used for drawing."<<endl;
+	cout<<endl;
+}
+
+// This function will return the choice to the main. 1) draw triangle. 2) draw diamond. 3) quit
+int menu ()
+{
+	int choice;
+	cout<<"---------------------------------------------------------------"<<endl;
+	cout<<"\t\t Menu"<<endl;
+	cout<<"---------------------------------------------------------------"<<endl;
+	
+	cout<<"1. Draw a Triangle"<<endl;
+	cout<<"2. Draw a Diamond"<<endl;
+	cout<<"Any other number. Quit"<<endl;
+	cout<<"Enter your choice: ";
+	cin>>choice;
+	
+	return choice;
+}
+
+// This function calls on appropriate function depending on the choice to draw a shape.
+void draw_shape (int choice){
+	int size = get_size();
+	char shapeChar = get_char();
+	
+	if(choice == 1) //draw triangle
+	{
+		draw_triangle(size, shapeChar);
+	}else{ //draw diamond
+		draw_diamond(size, shapeChar);
+	}
+}
+
+// This function will return the size of the shape, same function for either of the shapes.
+int get_size ()
+{
+	int size;
+	cout<<"Enter the size: ";
+	cin>>size;
+	return size;
+}
+
+// This function will ask users to select a character that will be used to draw the shape.
+char get_char ()
+{
+	char shapeChar;
+	cout<<"Enter the shape char: ";
+	cin>>shapeChar;
+	return shapeChar;
+}
+
+// This function draws a triangle of size (size) using a character c.
+void draw_triangle (int size, char c)
+{
+	int spaces = size;
+	int charInRow = 1; //number of characters in a row
+	for(int i=0; i < size; i++)
+	{
+		for(int j=spaces; j > 0; j--) //print spaces
+		{
+			cout<<" ";
+		}
+		
+		for(int k=0; k < charInRow; k++) //print charachters
+		{
+			cout<<c;
+		}
+		
+		cout<<endl;     //new line
+		spaces--;	    //there will be one less space in new line
+		charInRow += 2; //there will be one more char in new line
+	}
+}
+
+// This function first calls draw_triangle, then draw_bottom to draw the diamond.
+void draw_diamond (int size, char c)
+{
+	draw_triangle(size, c);
+	draw_bottom(size, c);
+}
+
+// This function actually draws an upside down triangle of size size-1 as the bottom of the diamond.
+void draw_bottom (int size, char c)
+{
+	size--;
+	int spaces = 2;
+	int charInRow = size*2 - 1; //number of characters in a row
+	for(int i=0; i < size; i++)
+	{
+		for(int j=spaces; j > 0; j--) //print spaces
+		{
+			cout<<" ";
+		}
+		
+		for(int k=0; k < charInRow; k++) //print charachters
+		{
+			cout<<c;
+		}
+		
+		cout<<endl;     //new line
+		spaces++;	    //there will be one less space in new line
+		charInRow -= 2; //there will be one more char in new line
+	}
+}
+
